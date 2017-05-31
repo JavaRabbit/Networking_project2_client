@@ -23,10 +23,7 @@ verifyNumArguments()
 
 
 
-
-
-
-s = socket.socket()
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host = socket.gethostname()
 #port = 50050
 
@@ -37,6 +34,11 @@ port = int(sys.argv[2])
 
 
 s.connect((host,port))
+
+# Client will first send to server
+response = "foobar blah some client command"
+s.send("foobar")
+
 print s.recv(1024)
 
 
