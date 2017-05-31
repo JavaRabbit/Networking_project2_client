@@ -37,12 +37,17 @@ s.connect((host,port))
 
 # Client will first send to server
 response = "foobar blah some client command"
-s.send("foobar")
+s.send(response)
 
-print s.recv(1024)
+# Save incoming response
+# recv can be made to wait for an amount of data
+# or until a timeout
 
+target = open("newFile.txt", "w")
+data =  s.recv(1024)
+target.write(data)
 
 
 #close the connection
 s.close
-print "hello"
+# print "hello"
