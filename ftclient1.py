@@ -43,10 +43,19 @@ s.send(response)
 # recv can be made to wait for an amount of data
 # or until a timeout
 
-target = open("newFile.txt", "w")
+# the new file name will be the argument in the command line
+target = open(sys.argv[4], "w")
 data =  s.recv(1024)
-target.write(data)
 
+# if the 3rd argument is -g, then save to file
+# else if -l, then print to user
+if sys.argv[3] == "-g":
+  target.write(data)
+else:
+   print data
+
+# close the file
+target.close()
 
 #close the connection
 s.close
