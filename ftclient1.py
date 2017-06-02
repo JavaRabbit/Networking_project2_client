@@ -1,5 +1,12 @@
-# Networking Project 2
-# Client in Python using 2.7.5
+#!/bin/python
+
+# Project: Networking Project 2
+# Program: FTP Client 
+# Language: Python 2.7.5
+# Author: Bonnie Kwong
+# Description: a python FTP client
+# Date: June 1, 2017
+
 
 import socket
 import sys
@@ -12,8 +19,11 @@ import os
 # verify that there are 5 arguments and that usage is correct
 # else print usage to user and exit
 def verifyNumArguments():
-  if len(sys.argv) != 5:
+  if len(sys.argv) != 6 or  (sys.argv[3] != "-g" and sys.argv[3] != "-l"):
     print "Usage: ftclient flip1 30021 -l 30020"
+    print "the first is" + sys.argv[3]
+
+
     exit(1)
 
 
@@ -36,27 +46,33 @@ port = int(sys.argv[2])
 s.connect((host,port))
 
 # Client will first send to server
-response = "foobar blah some client command"
+response = "foo bar"
 s.send(response)
 
 # Save incoming response
 # recv can be made to wait for an amount of data
 # or until a timeout
 
-# the new file name will be the argument in the command line
-target = open(sys.argv[4], "w")
-data =  s.recv(1024)
+# variable to receive the data
+data =  s.recv(2) # size
 
 # if the 3rd argument is -g, then save to file
 # else if -l, then print to user
 if sys.argv[3] == "-g":
+  target = open(sys.argv[4], "w")
   target.write(data)
-else:
+  dat = s.recv(3)  #  size
+  target.write(dat)
+  target.close()
+else:   
    print data
 
 # close the file
-target.close()
 
-#close the connection
-s.close
-# print "hello"
+
+
+
+
+
+
+
