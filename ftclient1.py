@@ -54,15 +54,15 @@ s.send(" ".join(sys.argv[0:]))
 # or until a timeout
 
 # variable to receive the data
-data =  s.recv(2) # size
+data =  s.recv(1024) # size
 
 # if the 3rd argument is -g, then save to file
 # else if -l, then print to user
 if sys.argv[3] == "-g":
   target = open(sys.argv[4], "w")
   target.write(data)
-  dat = s.recv(3)  #  size
-  target.write(dat)
+  #dat = s.recv(3)  #  size
+  #target.write(dat)
   target.close()
 else:   
    print data
