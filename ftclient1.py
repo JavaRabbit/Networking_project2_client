@@ -16,10 +16,10 @@ import os
 
 ######################################
 # Function to verify command line arguments
-# verify that there are 5 arguments and that usage is correct
+# verify that there are 5 or 6arguments and that usage is correct
 # else print usage to user and exit
 def verifyNumArguments():
-  if len(sys.argv) != 6 or  (sys.argv[3] != "-g" and sys.argv[3] != "-l"):
+  if (len(sys.argv) != 6 and len(sys.argv) !=5 ) or  (sys.argv[3] != "-g" and sys.argv[3] != "-l"):
     print "Usage: ftclient flip1 30021 -l someFile.txt 30020"
     exit(1)
 
