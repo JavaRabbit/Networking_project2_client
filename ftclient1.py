@@ -20,10 +20,7 @@ import os
 # else print usage to user and exit
 def verifyNumArguments():
   if len(sys.argv) != 6 or  (sys.argv[3] != "-g" and sys.argv[3] != "-l"):
-    print "Usage: ftclient flip1 30021 -l 30020"
-    print "the first is" + sys.argv[3]
-
-
+    print "Usage: ftclient flip1 30021 -l someFile.txt 30020"
     exit(1)
 
 
@@ -47,7 +44,10 @@ s.connect((host,port))
 
 # Client will first send to server
 response = "foo bar"
-s.send(response)
+
+# join the list of sys.argv into string
+# to send to server
+s.send(" ".join(sys.argv[0:]))
 
 # Save incoming response
 # recv can be made to wait for an amount of data
