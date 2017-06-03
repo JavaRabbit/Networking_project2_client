@@ -59,12 +59,19 @@ data =  s.recv(1024) # size
 # if the 3rd argument is -g, then save to file
 # else if -l, then print to user
 if sys.argv[3] == "-g":
+
+  # if the data returned by server
+  # is "not found" print this to user instead
+  # of putting into text file
+  if(data == "not found^@"):
+    print sys.argv[1] +":" +  sys.argv[2] + " says FILE NOT FOUND"
+    sys.exit()
   target = open(sys.argv[4], "w")
   target.write(data)
   #dat = s.recv(3)  #  size
   #target.write(dat)
   target.close()
-else:   
+else:   # -l  will print data
    print data
 
 # close the file
