@@ -31,8 +31,12 @@ verifyNumArguments()
 
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host = socket.gethostname()
+#host = socket.gethostname()
 #port = 50050
+host = sys.argv[1] + ".engr.oregonstate.edu"
+print "The host is: " + host
+
+
 
 
 # Client usage  ftclient flip1 30021 -l  30021
