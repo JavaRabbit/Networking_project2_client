@@ -12,7 +12,8 @@ import socket
 import sys
 import signal
 import os
-
+import string
+import struct
 
 ######################################
 # Function to verify command line arguments
@@ -57,8 +58,24 @@ s.send(" ".join(sys.argv[0:]))
 # recv can be made to wait for an amount of data
 # or until a timeout
 
+
+# the file size is sent first
+fileSize = s.recv(4)
+print "fileSize is ", fileSize
+print "repr(fileSize is ", repr(fileSize)
+myint = struct.unpack("<i", fileSize)[0]
+print "my int is ", myint
+print "the type is ", type(myint)
+
+
+# send to server, ok got file size
+s.send("ok");
+
+
 # variable to receive the data
 data =  s.recv(1024) # size
+
+
 
 # if the 3rd argument is -g, then save to file
 # else if -l, then print to user
