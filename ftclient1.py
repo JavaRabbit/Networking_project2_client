@@ -89,6 +89,14 @@ if sys.argv[3] == "-g":
     sys.exit()
   target = open(sys.argv[4], "w")
   target.write(data)
+
+  # depending on file size
+  # loop over to recv more data
+  numRepeat = myint/1024
+  for x in range (0, numRepeat):
+    data = s.recv(1024)
+    target.write(data)
+
   #dat = s.recv(3)  #  size
   #target.write(dat)
   target.close()
