@@ -67,6 +67,9 @@ myint = struct.unpack("<i", fileSize)[0]
 print "my int is ", myint
 print "the type is ", type(myint)
 
+if myint == -5:
+  print "File not found"
+  quit()
 
 # send to server, ok got file size
 s.send("ok");
