@@ -62,14 +62,14 @@ s.send(" ".join(sys.argv[0:]))
 
 # the file size is sent first
 fileSize = s.recv(4)
-print "fileSize is ", fileSize
-print "repr(fileSize is ", repr(fileSize)
+#print "fileSize is ", fileSize
+#print "repr(fileSize is ", repr(fileSize)
 myint = struct.unpack("<i", fileSize)[0]
-print "my int is ", myint
-print "the type is ", type(myint)
+#print "my int is ", myint
+#print "the type is ", type(myint)
 
 if myint == -5:
-  print "File not found"
+  print "\n%s: %s says FILE NOT FOUND. Please try again.\n" % (sys.argv[1], sys.argv[2])
   quit()
 
 # send to server, ok got file size
