@@ -22,33 +22,34 @@ import time
 # else print usage to user and exit
 def verifyNumArguments():
   if (len(sys.argv) != 6 and len(sys.argv) !=5 ) or  (sys.argv[3] != "-g" and sys.argv[3] != "-l"):
-    print "\nUsage: ./ftclient flip1 30021 -g someFile.txt 30020\n"
+    print "Usage: ftclient flip1 30021 -l someFile.txt 30020"
     exit(1)
 
-  #print type(sys.argv[2])
-  try:
-    fb = int(sys.argv[2])
-    print type(fb)
-  except:
-    print "\nUsage: ./ftclient flip1 <portNumber> -g someFile.txt <dataPortNumber>\n"
-    exit(1)
+
 
 # Verify user entered correct number of arguments
 verifyNumArguments() 
 
 
+
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #host = socket.gethostname()
+#port = 50050
 host = sys.argv[1] + ".engr.oregonstate.edu"
 #print "The host is: " + host
+
+
 
 
 # Client usage  ftclient flip1 30021 -l  30021
 port = int(sys.argv[2])
 
+
+
 s.connect((host,port))
 
 # Client will first send to server
+response = "foo bar"
 
 # join the list of sys.argv into string
 # to send to server
