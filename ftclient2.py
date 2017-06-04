@@ -95,6 +95,9 @@ data = data_s.recv(1024) # size
 # else if -l, then print to user
 if sys.argv[3] == "-g":
 
+  # Print confirmation to user
+  print "Receiving %s from %s :%s\n" % (sys.argv[4], sys.argv[1], sys.argv[5])
+  
   target = open(sys.argv[4], "w")
   target.write(data)
 
@@ -104,6 +107,9 @@ if sys.argv[3] == "-g":
   for x in range (0, numRepeat):
     data = data_s.recv(1024)
     target.write(data)
+
+
+  print "\nFile transfer complete.\n"
 
   #dat = s.recv(3)  #  size
   #target.write(dat)
