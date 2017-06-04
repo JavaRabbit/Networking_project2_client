@@ -25,10 +25,9 @@ def verifyNumArguments():
     print "\nUsage: ./ftclient flip1 30021 -g someFile.txt 30020\n"
     exit(1)
 
-  #print type(sys.argv[2])
+  # Validate that an integer for a port number is entered
   try:
     fb = int(sys.argv[2])
-    print type(fb)
   except:
     print "\nUsage: ./ftclient flip1 <portNumber> -g someFile.txt <dataPortNumber>\n"
     exit(1)
@@ -36,23 +35,24 @@ def verifyNumArguments():
 # Verify user entered correct number of arguments
 verifyNumArguments() 
 
-
+# Create the socket object
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #host = socket.gethostname()
 host = sys.argv[1] + ".engr.oregonstate.edu"
-#print "The host is: " + host
 
 
-# Client usage  ftclient flip1 30021 -l  30021
+# Assign sys.argv[2] as the port number
 port = int(sys.argv[2])
+
 
 s.connect((host,port))
 
 # Client will first send to server
 
 # join the list of sys.argv into string
-# to send to server
-s.send(" ".join(sys.argv[0:]))
+theCommand = " ".join(sys.argv[0:])
+#s.send(" ".join(sys.argv[0:]))
+s.send(theCommand)
 
 # Save incoming response
 # recv can be made to wait for an amount of data
