@@ -59,30 +59,27 @@ s.send(" ".join(sys.argv[0:]))
 # recv can be made to wait for an amount of data
 # or until a timeout
 
+if sys.argv[3] == "-g":
+  # the file size is sent first
+  fileSize = s.recv(4)
+  myint = struct.unpack("<i", fileSize)[0]
 
-# the file size is sent first
-fileSize = s.recv(4)
-#print "fileSize is ", fileSize
-#print "repr(fileSize is ", repr(fileSize)
-myint = struct.unpack("<i", fileSize)[0]
-#print "my int is ", myint
-#print "the type is ", type(myint)
+  if myint == -5:
+    print "\n%s: %s says FILE NOT FOUND. Please try again.\n" % (sys.argv[1], sys.argv[2])
+    quit()
 
-if myint == -5:
-  print "\n%s: %s says FILE NOT FOUND. Please try again.\n" % (sys.argv[1], sys.argv[2])
-  quit()
-#else:
-#  print "File size is %d\n" %(myint)
-
-# send to server, ok got file size
-s.send("ok");
+  # send to server, ok got file size
+  s.send("ok");
 
 
 # after sending the ok, server will recv the "ok"
 # the it will wait for a data connection
 # So lets create a data connection at port 
 data_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-dataport = int(sys.argv[5]) # for -g it will be the 6th arg
+if sys.argv[3] == "-g"
+  dataport = int(sys.argv[5]) # for -g it will be the 6th arg
+else:
+  dataport = int(sys.argv[4]
 
 # sleep so that server has time to set up
 time.sleep(2)
