@@ -82,13 +82,13 @@ else:
 
 # sleep so that server has time to set up
 time.sleep(2)
-#dataPortNum = int(sys.argv[5])
+
+# Connect to the data port on server
 data_s.connect((host, dataport))  
 #ever port must already be open and available on the server side
 
 # variable to receive the data
 data = data_s.recv(1024) # size
-
 
 # if the 3rd argument is -g, then save to file
 # else if -l, then print to user
@@ -107,11 +107,7 @@ if sys.argv[3] == "-g":
     data = data_s.recv(1024)
     target.write(data)
 
-
   print "\nFile transfer complete.\n"
-
-  #dat = s.recv(3)  #  size
-  #target.write(dat)
   target.close()
 else:   # -l  will print data
   print "Receiving directory structure from %s : %s\n" % ( sys.argv[1], sys.argv[4]) 
