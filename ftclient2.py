@@ -44,13 +44,18 @@ host = sys.argv[1] + ".engr.oregonstate.edu"
 # Assign sys.argv[2] as the port number
 port = int(sys.argv[2])
 
+# wrap connection in a try
+try:
+  s.connect((host,port))
+except:
+  print "\nAppears that port %s on server is not available.\n" %(port)
+  exit(1)  
 
-s.connect((host,port))
-
-# Client will first send to server
 
 # join the list of sys.argv into string
 theCommand = " ".join(sys.argv[0:])
+
+# send the command to the server
 #s.send(" ".join(sys.argv[0:]))
 s.send(theCommand)
 
