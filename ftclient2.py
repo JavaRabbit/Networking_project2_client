@@ -36,7 +36,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #host = socket.gethostname()
 #port = 50050
 host = sys.argv[1] + ".engr.oregonstate.edu"
-print "The host is: " + host
+#print "The host is: " + host
 
 
 
@@ -76,16 +76,15 @@ if sys.argv[3] == "-g":
 # the it will wait for a data connection
 # So lets create a data connection at port 
 data_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-if sys.argv[3] == "-g"
+if sys.argv[3] == "-g":
   dataport = int(sys.argv[5]) # for -g it will be the 6th arg
 else:
-  dataport = int(sys.argv[4]
+  dataport = int(sys.argv[4])
 
 # sleep so that server has time to set up
 time.sleep(2)
-dataPortNum = int(sys.argv[5])
-data_s.connect((host, dataPortNum))  
-# error occurs here because 9090 or what
+#dataPortNum = int(sys.argv[5])
+data_s.connect((host, dataport))  
 #ever port must already be open and available on the server side
 
 # variable to receive the data
@@ -110,7 +109,8 @@ if sys.argv[3] == "-g":
   #target.write(dat)
   target.close()
 else:   # -l  will print data
-   print data
+  print "Receiving directory structure from %s : %s\n" % ( sys.argv[1], sys.argv[4]) 
+  print data
 
 # close the sockets
 s.close()
