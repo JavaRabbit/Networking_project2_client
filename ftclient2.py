@@ -71,6 +71,8 @@ myint = struct.unpack("<i", fileSize)[0]
 if myint == -5:
   print "\n%s: %s says FILE NOT FOUND. Please try again.\n" % (sys.argv[1], sys.argv[2])
   quit()
+#else:
+#  print "File size is %d\n" %(myint)
 
 # send to server, ok got file size
 s.send("ok");
