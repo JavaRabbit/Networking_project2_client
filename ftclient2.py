@@ -14,6 +14,7 @@ import signal
 import os
 import string
 import struct
+import time
 
 ######################################
 # Function to verify command line arguments
@@ -75,21 +76,27 @@ if myint == -5:
 s.send("ok");
 
 
-# variable to receive the data
-data =  s.recv(1024) # size
+# after sending the ok, server will recv the "ok"
+# the it will wait for a data connection
+# So lets create a data connection at port 
+data_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+dataport = int(sys.argv[5]) # for -g it will be the 6th arg
 
+# sleep so that server has time to set up
+time.sleep(2)
+dataPortNum = int(sys.argv[5])
+data_s.connect((host, dataPortNum))  
+# error occurs here because 9090 or what
+#ever port must already be open and available on the server side
+
+# variable to receive the data
+data = data_s.recv(1024) # size
 
 
 # if the 3rd argument is -g, then save to file
 # else if -l, then print to user
 if sys.argv[3] == "-g":
 
-  # if the data returned by server
-  # is "not found" print this to user instead
-  # of putting into text file
-  if(data == "not found^@"):
-    print sys.argv[1] +":" +  sys.argv[2] + " says FILE NOT FOUND"
-    sys.exit()
   target = open(sys.argv[4], "w")
   target.write(data)
 
@@ -97,7 +104,7 @@ if sys.argv[3] == "-g":
   # loop over to recv more data
   numRepeat = myint/1024
   for x in range (0, numRepeat):
-    data = s.recv(1024)
+    data = data_s.recv(1024)
     target.write(data)
 
   #dat = s.recv(3)  #  size
@@ -106,8 +113,9 @@ if sys.argv[3] == "-g":
 else:   # -l  will print data
    print data
 
-# close the file
-
+# close the sockets
+s.close()
+data_s.close()
 
 
 
