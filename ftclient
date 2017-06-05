@@ -22,38 +22,42 @@ import time
 # else print usage to user and exit
 def verifyNumArguments():
   if (len(sys.argv) != 6 and len(sys.argv) !=5 ) or  (sys.argv[3] != "-g" and sys.argv[3] != "-l"):
-    print "Usage: ftclient flip1 30021 -l someFile.txt 30020"
+    print "\nUsage: ./ftclient flip1 30021 -g someFile.txt 30020\n"
     exit(1)
 
-
+  # Validate that an integer for a port number is entered
+  try:
+    fb = int(sys.argv[2])
+  except:
+    print "\nUsage: ./ftclient flip1 <portNumber> -g someFile.txt <dataPortNumber>\n"
+    exit(1)
 
 # Verify user entered correct number of arguments
 verifyNumArguments() 
 
-
-
+# Create the socket object
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #host = socket.gethostname()
-#port = 50050
 host = sys.argv[1] + ".engr.oregonstate.edu"
-#print "The host is: " + host
 
 
-
-
-# Client usage  ftclient flip1 30021 -l  30021
+# Assign sys.argv[2] as the port number
 port = int(sys.argv[2])
 
+# wrap connection in a try
+try:
+  s.connect((host,port))
+except:
+  print "\nAppears that port %s on server is not available.\n" %(port)
+  exit(1)  
 
-
-s.connect((host,port))
-
-# Client will first send to server
-response = "foo bar"
 
 # join the list of sys.argv into string
-# to send to server
-s.send(" ".join(sys.argv[0:]))
+theCommand = " ".join(sys.argv[0:])
+
+# send the command to the server
+#s.send(" ".join(sys.argv[0:]))
+s.send(theCommand)
 
 # Save incoming response
 # recv can be made to wait for an amount of data
@@ -83,13 +87,13 @@ else:
 
 # sleep so that server has time to set up
 time.sleep(2)
-#dataPortNum = int(sys.argv[5])
+
+# Connect to the data port on server
 data_s.connect((host, dataport))  
 #ever port must already be open and available on the server side
 
 # variable to receive the data
 data = data_s.recv(1024) # size
-
 
 # if the 3rd argument is -g, then save to file
 # else if -l, then print to user
@@ -108,11 +112,7 @@ if sys.argv[3] == "-g":
     data = data_s.recv(1024)
     target.write(data)
 
-
   print "\nFile transfer complete.\n"
-
-  #dat = s.recv(3)  #  size
-  #target.write(dat)
   target.close()
 else:   # -l  will print data
   print "Receiving directory structure from %s : %s\n" % ( sys.argv[1], sys.argv[4]) 
