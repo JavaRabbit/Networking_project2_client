@@ -55,6 +55,11 @@ except:
 # join the list of sys.argv into string
 theCommand = " ".join(sys.argv[0:])
 
+# append the client host name to the end of the command
+# that way, the server can get the hostname
+theCommand = theCommand + " " + socket.gethostname()
+#print theCommand
+
 # send the command to the server
 #s.send(" ".join(sys.argv[0:]))
 s.send(theCommand)
